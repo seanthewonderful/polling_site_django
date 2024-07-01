@@ -1,0 +1,1 @@
+Following the Django official documentation to create a polling site. https://docs.djangoproject.com/en/5.0/intro/tutorial01/

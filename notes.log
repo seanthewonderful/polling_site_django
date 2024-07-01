@@ -1,0 +1,34 @@
+PART 1 - SETUP
+1. CLI: django-admin startproject polling_site
+2. pyenv local 3.12.0
+3. cd polling_site, create venv
+4. pip install django
+5. python manage.py runserver
+  - ignore migration warngings, follow URL
+  - `runserver` automatically reloads for code changes, but not always for file additions
+  - don't use this server for production only development
+6. CLI: python manage.py startapp polls
+  - New directory `polls` created with nested `migrations` dir and .py files
+WRITE FIRST VIEW
+7. Open polls/views.py and add code to create first view
+8. To call the view, we need to map it to a URL - and for this we need a URLconf.
+  - touch polls/urls.py and add code
+9. The next step is to point the root URLconf at the polls.urls module. In mysite/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list
+  - The include() function allows referencing other URLconfs. Whenever Django encounters include(), it chops off whatever part of the URL matched up to that point and sends the remaining string to the included URLconf for further processing.
+  - The idea behind include() is to make it easy to plug-and-play URLs. Since polls are in their own URLconf (polls/urls.py), they can be placed under “/polls/”, or under “/fun_polls/”, or under “/content/polls/”, or any other path root, and the app will still work.
+10. Try it out - visit http://localhost:8000/polls and run `python manage.py runserver`
+
+PART 2 - DATABASE
+11. Open polling_site/settings.py - SQLite is default, no need for installs. 
+12. If you wish to use another database, install the appropriate database bindings and change the following keys in the DATABASES 'default' item to match your database connection settings:
+
+    - ENGINE – Either 'django.db.backends.sqlite3', 'django.db.backends.postgresql', 'django.db.backends.mysql', or 'django.db.backends.oracle'. Other backends are also available.
+    - NAME – The name of your database. If you’re using SQLite, the database will be a file on your computer; in that case, NAME should be the full absolute path, including filename, of that file. The default value, BASE_DIR / 'db.sqlite3', will store the file in your project directory.
+  - If you are not using SQLite as your database, additional settings such as USER, PASSWORD, and HOST must be added. For more details, see the reference documentation for DATABASES.
+
+13. Update TIME_ZONE = 'UTC-07:00'
+14. CLI: python manage.py migrate
+15. Create database table models - polls/models.py
+16. Add "polls.apps.PollsConfig" to INSTALLED_APPS list in polling_site/settings.py. 
+17. CLI: python manage.py makemigrations polls
+18. 
