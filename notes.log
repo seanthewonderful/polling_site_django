@@ -31,4 +31,36 @@ PART 2 - DATABASE
 15. Create database table models - polls/models.py
 16. Add "polls.apps.PollsConfig" to INSTALLED_APPS list in polling_site/settings.py. 
 17. CLI: python manage.py makemigrations polls
-18. 
+18. (CLI: python manage.py check == checks for problems in project without making migrations or touching DB)
+19. CLI: python manage.py migrate
+SEQUENCE FOR DB MODEL CHANGES: 
+- Change your models (in models.py).
+- Run python manage.py makemigrations to create migrations for those changes
+- Run python manage.py migrate to apply those changes to the database.
+
+PART 3 - PLAYING WITH THE API
+20. Invoke free Django API in Python shell - CLI: python manage.py shell (We’re using this instead of simply typing “python”, because manage.py sets the DJANGO_SETTINGS_MODULE environment variable, which gives Django the Python import path to your mysite/settings.py file.)
+21. Django provides a rich database lookup API that's entirely driven by keyword arguments: 
+>>> Question.objects.filter(id=1)
+>>> Question.objects.filter(question_text__startswith="What")
+# Request an ID that doesn't exist, this will raise an exception.
+>>> Question.objects.get(id=2)
+  Traceback (most recent call last):
+    ...
+  DoesNotExist: Question matching query does not exist.
+And other stuff. Look up Django db API when time comes
+https://docs.djangoproject.com/en/5.0/intro/tutorial02/#:~:text=py%20shell%20again%3A-,%3E%3E%3E%20from%20polls.models%20import%20Choice%2C%20Question,-%23%20Make%20sure%20our
+
+PART 4 - DJANGO admin
+1. Create an admin user - CLI: python manage.py createsuperuser (enter username, email, password)
+2. Run server and visit page with "/admin" endpoint: python manage.py runserver
+3. Make the poll app modifiable to the admin- 
+polls/admin.py:
+from django.contrib import admin
+from .models import Question
+admin.site.register(Question)
+4. Refresh page to be able to edit Questions
+
+PART 5 - VIEWS (Part 3 in documentation)
+1. Add views to polls/views.py
+2. Wire these new views into polls/urls.py
