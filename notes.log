@@ -64,3 +64,11 @@ admin.site.register(Question)
 PART 5 - VIEWS (Part 3 in documentation)
 1. Add views to polls/views.py
 2. Wire these new views into polls/urls.py
+3. Create HTML templates - mkdir polls/templates
+4. HTML templates are served with render(request, "route", template_vars_dict)
+5. Add namespace to URLconf - in polls/urls.py add: app_name = "polls"
+6. Links in html can be configured: 
+  {% url 'app_name:route_name' param %} -> {% url 'polls:detail' question.id %}
+
+PART 6 - FORMS (Part 4 in documentation)
+1. Django comes with cross site request forgeries security, so within a form simply enter: {% csrf_token %}
