@@ -35,8 +35,8 @@ PART 2 - DATABASE
 19. CLI: python manage.py migrate
 SEQUENCE FOR DB MODEL CHANGES: 
 - Change your models (in models.py).
-- Run python manage.py makemigrations to create migrations for those changes
-- Run python manage.py migrate to apply those changes to the database.
+- CLI: python manage.py makemigrations, to create migrations for those changes
+- CLI: python manage.py migrate, to apply those changes to the database.
 
 PART 3 - PLAYING WITH THE API
 20. Invoke free Django API in Python shell - CLI: python manage.py shell (We’re using this instead of simply typing “python”, because manage.py sets the DJANGO_SETTINGS_MODULE environment variable, which gives Django the Python import path to your mysite/settings.py file.)
@@ -72,3 +72,25 @@ PART 5 - VIEWS (Part 3 in documentation)
 
 PART 6 - FORMS (Part 4 in documentation)
 1. Django comes with cross site request forgeries security, so within a form simply enter: {% csrf_token %}
+2. From view function, request.POST['name']
+
+PART 7 - GENERIC VIEWS - This part is confusing, so look at the docs.
+1. Convert the URLconf: 
+  - in polls/urls.py, change view arguments to `views.DetailView.as_view()` etc.
+  - also updated urlParams to become 'pk' instead of 'question_id'
+2. Amend views - each now becomes a class 
+  - https://docs.djangoproject.com/en/5.0/intro/tutorial04/#:~:text=Each%20generic%20view,views%20documentation
+  - https://docs.djangoproject.com/en/5.0/topics/class-based-views/
+  - https://www.youtube.com/watch?v=RE0HlKch_3U
+
+PART 8 - TESTING (Part 5 in documentation)
+1. polls/tests.py - write test for recently published questions bug
+2. To run tests, CLI: python manage.py test polls
+  - manage.py test polls looked for tests in the polls application
+  - it found a subclass of the django.test.TestCase class
+  - it created a special database for the purpose of testing
+  - it looked for test methods - ones whose names begin with test
+  - in test_was_published_recently_with_future_question it created a Question instance whose pub_date field is 30 days in the future
+  - … and using the assertIs() method, it discovered that its was_published_recently() returns True, though we wanted it to return False
+  - The test informs us which test failed and even the line on which the failure occurred.
+3. Test a view: 
