@@ -93,4 +93,22 @@ PART 8 - TESTING (Part 5 in documentation)
   - in test_was_published_recently_with_future_question it created a Question instance whose pub_date field is 30 days in the future
   - … and using the assertIs() method, it discovered that its was_published_recently() returns True, though we wanted it to return False
   - The test informs us which test failed and even the line on which the failure occurred.
-3. Test a view: 
+
+PART 9 - STATIC FILES (Part 6 in documentation)
+django.contrib.staticfiles collects static files from each of your applications (and any other places you specify) into a single location that can easily be served in production
+1. Create directory 'static' in 'polls' directory. Django will serve static files from here.
+  - Nest another 'polls' directory and place your static files there. = polls/static/polls/style.css
+    - Can refer to this file simply as 'polls/style.css'
+  - https://docs.djangoproject.com/en/5.0/ref/contrib/staticfiles/
+2. To load static files, use {% load static %} in templates. To reference static files, use {% static "polls/style.css" %}
+3. CSS files can also reference static files like images in the same relative pathing way. 
+
+PART 10 - CUSTOMIZING ADMIN INTERFACE (Part 7 in documentation)
+1. To register a model with default Django form representation: admin.site.register(Question)
+  - But to customize how the admin form looks and works, we can use the ModelAdmin class and include the new class in the register() args: admin.site.register(Question, QuestionAdmin)
+2. Can add display options with the @admin.display() from within the class Definition in models.py
+3. Create a 'templates' directory within root project directory - 'polling_site/templates/' to customize admin interface.
+4. Add "DIRS" option to 'polling_site/polling_site/settings.py' - documentation is off here so see the settings.py file 
+
+PART 11 - DEBUG TOOLBAR (Part 8 in documentation)
+1. pip install django-debug-toolbar

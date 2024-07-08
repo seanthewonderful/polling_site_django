@@ -1,0 +1,10 @@
+li a {
+  color: white;
+  font-size: x-large;
+}
+
+body {
+  height: 100vh;
+  background: white url("images/fractal_forest.png") no-repeat;
+  background-size: cover;
+}
