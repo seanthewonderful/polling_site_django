@@ -115,5 +115,16 @@ PART 11 - DEBUG TOOLBAR (Part 8 in documentation)
 
 
 DOCKERIZE
-1. docker run -it --rm -p 8000:8000 django-app
-2. docker run -it --rm -p 8000:8000 django
+1. At project root, create file 'Dockerfile'
+  - Go to hub.docker.com and search for the official Python image to begin Dockerfile text
+  - Add scripts to Dockerfile
+2. Create docker-compose.yml also at project root
+  - Add scripts to docker-compose.yml
+3. Create Docker image 
+  - CLI: docker compose build
+  - Image now appears on Docker hub
+4. Run container locally
+  - CLI: docker compose up
+  - Container is now running
+  - to visit, need to go to http://localhost:8000
+  
